@@ -1,11 +1,27 @@
+import MainNews from "@/components/MainNews";
 import Marquee from "@/components/Marquee";
 
 
-export default function Home() {
+export default async function Home() {
+  const res = await fetch('https://news-api-v2.vercel.app/api/news/sections')
+  const data = await res.json()
+  const sections = data.data
+  const mainNews = sections[0].articles
+ 
   return (
     <div >
       <Marquee/>
-      "ফ্লাইদুবাইয়ের ইসরায়েলগামী বিমানের নিয়ন্ত্রণ নেওয়ার চেষ্টা করা কো-পাইলট একটি ক্র্যাশ অ্যাক্স দিয়ে পাইলটকে আক্রমণ করেছিলেন বলে জানিয়েছে সংযুক্ত আরব আমিরাতের অ্যাটর্নি জেনারেল।"
+
+      <div className = "grid grid-cols-3 max-w-7xl mx-auto">
+
+        {/* news section */}
+        <div className=" col-span-2 ">
+          <MainNews news={mainNews}/>
+        </div>
+
+        {/* most read section */}
+        <div className="bg-green-500 col-span-1 "></div>
+      </div>
     </div>
   );
 }
